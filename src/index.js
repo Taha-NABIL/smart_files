@@ -40,7 +40,7 @@ app.get("/", async (req, res) => {
  * @route POST /upload
  * @desc Uploads file to DB
  */
-app.post("/upload", upload.single("file"), (req, res) => {
+app.post("/try", upload.single("file"), (req, res) => {
   const filename = req.file.originalname;
   const filepath = req.file.path;
 
@@ -68,9 +68,16 @@ app.post("/upload", upload.single("file"), (req, res) => {
  */
 app.get("/download/:id", async (req, res) => {
   const fileId = req.params.id;
-  await channel.sendToQueue(queueName, Buffer.from(fileId));
   await downloadFile(fileId, res);
 });
+
+
+app.get("/transcrypt", async (req, res) => {
+  
+  await channel.sendToQueue(queueName, Buffer.from("yoooo"));
+  
+});
+
 
 const PORT = process.env.PORT || 3000;
 
